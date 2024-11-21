@@ -36,3 +36,27 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+# Dependency directories
+.mvn/
+/local_repository/
+
+# IDE-specific files
+.idea/
+
+# Log files
+logs/
+
+# Test results
+**/target/test-classes
+**/target/test-reports
+
+# Compiled class files
+*.class
+
+# Archives
+*.zip
+*.tar
+*.gz
+*.7z
+
