@@ -3,14 +3,15 @@ package autonomous.services;
 import autonomous.entities.Task;
 
 import java.util.List;
+import java.util.Optional;
 
-public interface ITaskServices {
+public interface ITaskService {
 
-  Task GetTaskById(long id);
+  Optional<Task> GetTaskById(long id);
   List<Task> GetAllTasks();
   Task SaveTask(Task task);
-  Task UpdateTAsk(Task task);
-  boolean DeleteTaskById(long id);
+  Task UpdateTask(Task task);
+  void DeleteTaskById(long id);
   boolean TaskExists(long id);
 
 }
