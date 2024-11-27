@@ -4,11 +4,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
+import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
+import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
 import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
+import org.springframework.security.oauth2.server.authorization.token.JwtGenerator;
 import org.springframework.security.web.SecurityFilterChain;
 
 import javax.sql.DataSource;
@@ -37,10 +39,14 @@ public class AuthorizationServerConfig {
   }
 
   @Bean
+  public JwtGenerator tokenGenerator(JwtEncoder jwtEncoder) {
+    return new JwtGenerator(jwtEncoder);
+  }
+
+  @Bean
   public TokenSettings tokenSettings() {
     return TokenSettings.builder()
-        .accessTokenTimeToLive(Duration.ofHours(1)) // Tempo de vida do token de acesso
-        .reuseRefreshTokens(false) // Força o refresh token a ser regenerado
+        .accessTokenTimeToLive(Duration.ofHours(1)) // Expiração do token
         .build();
   }
 }

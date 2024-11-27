@@ -37,5 +37,20 @@ public class TaskController {
     return null;
   }
 
+  @GetMapping("/public")
+  public String publicEndpoint() {
+    return "Este endpoint é público.";
+  }
+
+  @GetMapping("/user")
+  public String userEndpoint() {
+    return "Olá, usuário! Este endpoint requer a role USER.";
+  }
+
+  @GetMapping("/admin")
+  public String adminEndpoint() {
+    return "Olá, administrador! Este endpoint requer a role ADMIN.";
+  }
+
 }
 
