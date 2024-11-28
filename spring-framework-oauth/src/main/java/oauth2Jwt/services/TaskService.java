@@ -1,7 +1,7 @@
-package autonomous.services;
+package oauth2Jwt.services;
 
-import autonomous.entities.Task;
-import autonomous.repositories.ITaskRepository;
+import oauth2Jwt.entities.Task;
+import oauth2Jwt.repositories.ITaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
