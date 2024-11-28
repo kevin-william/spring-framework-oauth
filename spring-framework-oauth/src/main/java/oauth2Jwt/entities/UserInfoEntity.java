@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,5 +32,7 @@ public class UserInfoEntity {
   @Column(nullable = false, name = "ROLES")
   private String roles;
 
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private List<RefreshTokenEntity> refreshTokens;
 }
 

@@ -34,6 +34,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -59,7 +61,7 @@ public class SecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFil
           ex.authenticationEntryPoint((request, response, authException) ->
               response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage()));
         })
-        .httpBasic(Customizer.withDefaults())
+        .httpBasic(withDefaults())
         .build();
   }
 
@@ -70,7 +72,7 @@ public class SecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFil
         .securityMatcher(new AntPathRequestMatcher("/api/**"))
         .csrf(AbstractHttpConfigurer::disable)
         .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
-        .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
+        .oauth2ResourceServer(oauth2 -> oauth2.jwt(withDefaults()))
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .addFilterBefore(new JwtAccessTokenFilter(rsaKeyRecord, jwtTokenUtils), UsernamePasswordAuthenticationFilter.class)
         .exceptionHandling(ex -> {
@@ -78,7 +80,25 @@ public class SecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFil
           ex.authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint());
           ex.accessDeniedHandler(new BearerTokenAccessDeniedHandler());
         })
-        .httpBasic(Customizer.withDefaults())
+        .httpBasic(withDefaults())
+        .build();
+  }
+
+  @Order(3)
+  @Bean
+  public SecurityFilterChain refreshTokenSecurityFilterChain(HttpSecurity httpSecurity) throws Exception{
+    return httpSecurity
+        .securityMatcher(new AntPathRequestMatcher("/refresh-token/**"))
+        .csrf(AbstractHttpConfigurer::disable)
+        .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
+        .oauth2ResourceServer(oauth2 -> oauth2.jwt(withDefaults()))
+        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .exceptionHandling(ex -> {
+          log.error("[SecurityConfig:refreshTokenSecurityFilterChain] Exception due to :{}",ex);
+          ex.authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint());
+          ex.accessDeniedHandler(new BearerTokenAccessDeniedHandler());
+        })
+        .httpBasic(withDefaults())
         .build();
   }
 

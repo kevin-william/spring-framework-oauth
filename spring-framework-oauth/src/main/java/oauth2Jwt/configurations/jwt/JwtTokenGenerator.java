@@ -43,6 +43,21 @@ public class JwtTokenGenerator {
     return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
   }
 
+  public String generateRefreshToken(Authentication authentication) {
+
+    log.info("[JwtTokenGenerator:generateRefreshToken] Token Creation Started for:{}", authentication.getName());
+
+    JwtClaimsSet claims = JwtClaimsSet.builder()
+        .issuer("atquil")
+        .issuedAt(Instant.now())
+        .expiresAt(Instant.now().plus(15 , ChronoUnit.DAYS))
+        .subject(authentication.getName())
+        .claim("scope", "REFRESH_TOKEN")
+        .build();
+
+    return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
+  }
+
   private static String getRolesOfUser(Authentication authentication) {
     return authentication.getAuthorities().stream()
         .map(GrantedAuthority::getAuthority)
