@@ -8,11 +8,11 @@
     <version>3.2.11</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
-  <groupId>com.example</groupId>
-  <artifactId>demo</artifactId>
+  <groupId>com.oauth2Jwt</groupId>
+  <artifactId>spring-with_jpa-oauth2-jwt-webapi</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>demo</name>
-  <description>Demo project for Spring Boot</description>
+  <name>spring-with_jpa-oauth2-jtw-webapi</name>
+  <description>Demo project for Spring Boot with JPA, OAuth2 Server and JWT Tokens </description>
   <url/>
   <licenses>
     <license/>

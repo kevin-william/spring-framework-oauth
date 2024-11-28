@@ -1,6 +1,6 @@
-package autonomous.repositories;
+package oauth2Jwt.repositories;
 
-import autonomous.entities.Task;
+import oauth2Jwt.entities.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ITaskRepository extends JpaRepository<Task, Long> {

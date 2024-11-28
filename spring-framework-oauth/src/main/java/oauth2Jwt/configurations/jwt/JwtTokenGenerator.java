@@ -1,4 +1,4 @@
-package autonomous.configurations.JWT;
+package oauth2Jwt.configurations.jwt;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

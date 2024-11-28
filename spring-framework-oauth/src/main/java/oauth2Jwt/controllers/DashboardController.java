@@ -1,4 +1,4 @@
-package autonomous.controllers;
+package oauth2Jwt.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

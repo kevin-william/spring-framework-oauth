@@ -1,4 +1,4 @@
-package autonomous.entities;
+package oauth2Jwt.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

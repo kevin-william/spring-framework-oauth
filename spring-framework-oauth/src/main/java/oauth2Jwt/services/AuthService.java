@@ -1,9 +1,9 @@
-package autonomous.services;
+package oauth2Jwt.services;
 
-import autonomous.configurations.JWT.JwtTokenGenerator;
-import autonomous.dtos.AuthResponseDto;
-import autonomous.dtos.TokenType;
-import autonomous.repositories.UserInfoRepo;
+import oauth2Jwt.configurations.jwt.JwtTokenGenerator;
+import oauth2Jwt.dtos.AuthResponseDto;
+import oauth2Jwt.dtos.TokenType;
+import oauth2Jwt.repositories.UserInfoRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

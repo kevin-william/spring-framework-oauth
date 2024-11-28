@@ -1,6 +1,6 @@
-package autonomous.controllers;
+package oauth2Jwt.controllers;
 
-import autonomous.services.AuthService;
+import oauth2Jwt.services.AuthService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

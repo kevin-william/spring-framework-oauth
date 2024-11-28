@@ -1,4 +1,4 @@
-package autonomous.configurations;
+  package oauth2Jwt.configurations;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

@@ -1,6 +1,6 @@
-package autonomous.configurations;
+package oauth2Jwt.configurations;
 
-import autonomous.entities.UserInfoEntity;
+import oauth2Jwt.entities.UserInfoEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

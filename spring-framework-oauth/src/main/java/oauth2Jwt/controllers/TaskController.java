@@ -1,7 +1,7 @@
-package autonomous.controllers;
+package oauth2Jwt.controllers;
 
-import autonomous.entities.Task;
-import autonomous.services.ITaskService;
+import oauth2Jwt.entities.Task;
+import oauth2Jwt.services.ITaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

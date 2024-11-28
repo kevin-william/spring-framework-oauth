@@ -1,6 +1,6 @@
-package autonomous.configurations;
+package oauth2Jwt.configurations;
 
-import autonomous.repositories.UserInfoRepo;
+import oauth2Jwt.repositories.UserInfoRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

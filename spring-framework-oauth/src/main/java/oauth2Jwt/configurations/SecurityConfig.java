@@ -1,4 +1,4 @@
-package autonomous.configurations;
+package oauth2Jwt.configurations;
 
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;

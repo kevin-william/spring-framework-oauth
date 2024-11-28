@@ -1,6 +1,6 @@
-package autonomous.services;
+package oauth2Jwt.services;
 
-import autonomous.entities.Task;
+import oauth2Jwt.entities.Task;
 
 import java.util.List;
 import java.util.Optional;

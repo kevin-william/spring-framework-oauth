@@ -1,6 +1,6 @@
-package autonomous.repositories;
+package oauth2Jwt.repositories;
 
-import autonomous.entities.UserInfoEntity;
+import oauth2Jwt.entities.UserInfoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
