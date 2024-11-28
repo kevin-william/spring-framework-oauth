@@ -9,7 +9,7 @@
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
   <groupId>com.oauth2Jwt</groupId>
-  <artifactId>spring-with_jpa-oauth2-jwt-webapi</artifactId>
+  <artifactId>spring-with-jpa-oauth2-jwt-webapi</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>spring-with_jpa-oauth2-jtw-webapi</name>
   <description>Demo project for Spring Boot with JPA, OAuth2 Server and JWT Tokens </description>
