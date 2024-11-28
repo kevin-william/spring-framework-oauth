@@ -11,16 +11,17 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import oauth2Jwt.configurations.jwt.JwtAccessTokenFilter;
 import oauth2Jwt.configurations.jwt.JwtTokenUtils;
+import oauth2Jwt.services.LogoutHandlerService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
@@ -46,6 +47,7 @@ public class SecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFil
   private final UserInfoManagerConfig userInfoManagerConfig;
   private final RSAKeyRecord rsaKeyRecord;
   private final JwtTokenUtils jwtTokenUtils;
+  private final LogoutHandlerService logoutHandlerService;
 
 
   @Order(1)
@@ -102,6 +104,41 @@ public class SecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFil
         .build();
   }
 
+  @Order(4)
+  @Bean
+  public SecurityFilterChain logoutSecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
+    return httpSecurity
+        .securityMatcher(new AntPathRequestMatcher("/logout/**"))
+        .csrf(AbstractHttpConfigurer::disable)
+        .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
+        .oauth2ResourceServer(oauth2 -> oauth2.jwt(withDefaults()))
+        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .addFilterBefore(new JwtAccessTokenFilter(rsaKeyRecord,jwtTokenUtils), UsernamePasswordAuthenticationFilter.class)
+        .logout(logout -> logout
+            .logoutUrl("/logout")
+            .addLogoutHandler(logoutHandlerService)
+            .logoutSuccessHandler(((request, response, authentication) -> SecurityContextHolder.clearContext()))
+        )
+        .exceptionHandling(ex -> {
+          log.error("[SecurityConfig:logoutSecurityFilterChain] Exception due to :{}",ex);
+          ex.authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint());
+          ex.accessDeniedHandler(new BearerTokenAccessDeniedHandler());
+        })
+        .build();
+  }
+
+  @Order(5)
+  @Bean
+  public SecurityFilterChain registerSecurityFilterChain(HttpSecurity httpSecurity) throws Exception{
+    return httpSecurity
+        .securityMatcher(new AntPathRequestMatcher("/sign-up/**"))
+        .csrf(AbstractHttpConfigurer::disable)
+        .authorizeHttpRequests(auth ->
+            auth.anyRequest().permitAll())
+        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .build();
+  }
+
   @Bean
   PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
@@ -118,16 +155,5 @@ public class SecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFil
     JWKSource<SecurityContext> jwkSource = new ImmutableJWKSet<>(new JWKSet(jwk));
     return new NimbusJwtEncoder(jwkSource);
   }
-//  @Order(2)
-//  @Bean
-//  public SecurityFilterChain h2ConsoleSecurityFilterChainConfig(HttpSecurity httpSecurity) throws Exception{
-//    return httpSecurity
-//        .securityMatcher(new AntPathRequestMatcher(("/h2-console/**")))
-//        .authorizeHttpRequests(auth->auth.anyRequest().permitAll())
-//        .csrf(csrf -> csrf.ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")))
-//        // to display the h2Console in Iframe
-//        .headers(headers -> headers.frameOptions(Customizer.withDefaults()).disable())
-//        .build();
-//  }
 
 }
