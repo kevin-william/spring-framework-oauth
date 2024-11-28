@@ -2,43 +2,26 @@
 
 **Visão Geral**
 
-Esta aplicação Spring Boot demonstra a implementação de autenticação e autorização OAuth2 utilizando o Spring Security. Ela fornece uma configuração básica para proteger APIs REST com OAuth2.
+é um trabalho em progresso.
+Atualmente a lógica já funciona para login, refresh token, logout, gestão de rotas por Roles e Scopes.
+
+Os plano futuro é melhorar algumas regras, por exemplo a forma de como obter roles e scopes. 
+Outro plano futuro é adicionar  
 
 **Pré-requisitos**
 
-  * **Java Development Kit (JDK):** Versão 11 ou superior
-  * **Ferramenta de Build:** Maven ou Gradle
-  * **Banco de Dados:** Um banco de dados relacional como MySQL, PostgreSQL ou Oracle (opcional, dependendo da sua implementação)
-  * **Servidor de Autorização OAuth2:** Um servidor de autorização OAuth2 configurado (por exemplo, Keycloak, Auth0 ou uma implementação personalizada)
+  * **Java Development Kit (JDK):** Versão 23 ou superior
+  * **Ferramenta de Build:** Maven
+  * **Banco de Dados:** Um banco de dados relacional Oracle
+  * **Servidor de Autorização OAuth2:** Um servidor de autorização OAuth2 configurado
 
-**Iniciando**
-
-1.  **Clone o repositório:**
-    ```bash
-    git clone https://github.com/seu-usuario/seu-projeto.git
-    ```
-2.  **Construa o projeto:**
-      * **Maven:**
-        ```bash
-        mvn clean install
-        ```
-      * **Gradle:**
-        ```bash
-        ./gradlew build
-        ```
 3.  **Configure o cliente OAuth2:**
-      * Obtenha o ID do cliente, segredo do cliente e URL do servidor de autorização do seu provedor OAuth2.
-      * Atualize o arquivo `application.properties` com essas credenciais.
+      * será atualizado
 4.  **Execute a aplicação:**
       * **Maven:**
         ```bash
         mvn spring-boot:run
         ```
-      * **Gradle:**
-        ```bash
-        ./gradlew bootRun
-        ```
-
 **Estrutura do Projeto**
 
 ```
@@ -55,6 +38,7 @@ seu-projeto/
 
 **Componentes-chave**
 
+  * **Lore Ipsum:**
   * **Configuração de Segurança:**
       * Configura o Spring Security para usar OAuth2 para autenticação e autorização.
       * Define os detalhes do cliente OAuth2 e a configuração do servidor de recursos.
